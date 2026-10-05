@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ShopKart</title>
+<style>
+:root{--bg:#f6f4ef;--card:#fff;--ink:#1d2433;--mute:#667085;--line:#e3dfd6;--acc:#0f766e;--acc2:#f59e0b;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14181f;--card:#1d232d;--ink:#eef1f6;--mute:#9aa4b5;--line:#2c3441}}
+:root[data-theme="dark"]{--bg:#14181f;--card:#1d232d;--ink:#eef1f6;--mute:#9aa4b5;--line:#2c3441}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Trebuchet MS",Verdana,sans-serif;line-height:1.5}
+header{position:sticky;top:env(safe-area-inset-top,0px);background:var(--acc);color:#fff;display:flex;gap:12px;align-items:center;padding:10px 16px;z-index:5;flex-wrap:wrap}
+.logo{font-weight:700;font-size:22px;cursor:pointer;letter-spacing:.5px}
+.logo span{color:var(--acc2)}
+#q{flex:1;min-width:140px;padding:9px 12px;border:0;border-radius:6px;font:inherit}
+button{font:inherit;cursor:pointer}
+.hb{background:transparent;border:1px solid rgba(255,255,255,.5);color:#fff;border-radius:6px;padding:7px 12px}
+.hb:focus-visible,.btn:focus-visible,#q:focus-visible,select:focus-visible{outline:3px solid var(--acc2);outline-offset:2px}
+main{max-width:1100px;margin:0 auto;padding:16px}
+.cats{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;align-items:center}
+.chip{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:20px;padding:6px 14px}
+.chip.on{background:var(--ink);color:var(--bg)}
+select{padding:6px;border-radius:6px;border:1px solid var(--line);background:var(--card);color:var(--ink);margin-left:auto}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:12px;cursor:pointer;position:relative}
+.img{height:130px;border-radius:6px;display:grid;place-items:center;font-size:56px}
+.card h3{font-size:15px;margin:10px 0 2px}
+.price{font-weight:700}.old{color:var(--mute);text-decoration:line-through;font-size:13px;margin-left:6px}
+.off{color:var(--acc);font-size:13px}
+.heart{position:absolute;top:8px;right:8px;background:var(--card);border:1px solid var(--line);border-radius:50%;width:32px;height:32px}
+.btn{background:var(--acc);color:#fff;border:0;border-radius:6px;padding:10px 16px}
+.btn.alt{background:var(--acc2);color:#1d2433}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:16px;max-width:560px;margin:0 auto}
+.panel input{width:100%;padding:10px;margin:6px 0 12px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--ink);font:inherit}
+.row{display:flex;gap:12px;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line)}
+.detail{display:flex;gap:24px;flex-wrap:wrap}.detail .img{width:300px;max-width:100%;height:260px;font-size:110px}
+.pay{border:2px dashed var(--acc2);border-radius:8px;padding:12px;margin:12px 0}
+.mute{color:var(--mute)}
+#toast{position:fixed;bottom:calc(16px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:6px;display:none}
+</style>
+</head>
+<body>
+<header>
+<div class="logo" onclick="go('home')">Shop<span>Kart</span></div>
+<input id="q" placeholder="Search products" aria-label="Search products" oninput="S.q=this.value;go('home')">
+<button class="hb" onclick="go('wish')" id="wb"></button>
+<button class="hb" onclick="go('cart')" id="cb"></button>
+<button class="hb" onclick="go('login')" id="lb"></button>
+</header>
+<main id="v"></main>
+<div id="toast" role="status"></div>
+<script>
+const P=[
+{id:1,n:"Wireless Earbuds",c:"Electronics",p:1499,o:2999,e:"🎧",bg:"#dbeafe"},
+{id:2,n:"Smart Watch",c:"Electronics",p:2499,o:4999,e:"⌚",bg:"#e0e7ff"},
+{id:3,n:"Running Shoes",c:"Fashion",p:1899,o:3299,e:"👟",bg:"#fee2e2"},
+{id:4,n:"Cotton T-Shirt",c:"Fashion",p:499,o:999,e:"👕",bg:"#fef3c7"},
+{id:5,n:"Steel Water Bottle",c:"Home",p:349,o:599,e:"🍶",bg:"#d1fae5"},
+{id:6,n:"Table Lamp",c:"Home",p:799,o:1299,e:"💡",bg:"#fef9c3"},
+{id:7,n:"Backpack",c:"Fashion",p:1199,o:1999,e:"🎒",bg:"#fce7f3"},
+{id:8,n:"Bluetooth Speaker",c:"Electronics",p:1299,o:2199,e:"🔊",bg:"#cffafe"},
+{id:9,n:"Coffee Mug Set",c:"Home",p:449,o:799,e:"☕",bg:"#ede9fe"},
+{id:10,n:"Notebook Pack",c:"Books",p:199,o:349,e:"📓",bg:"#ffedd5"},
+{id:11,n:"Python Programming Book",c:"Books",p:399,o:650,e:"📘",bg:"#dbeafe"},
+{id:12,n:"Sunglasses",c:"Fashion",p:649,o:1199,e:"🕶️",bg:"#f1f5f9"}];
+const ld=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))||d}catch(e){return d}};
+const sv=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
+const S={cat:"All",q:"",sort:"",cart:ld("sk_cart",{}),wish:ld("sk_wish",[]),user:ld("sk_user",null)};
+const $=id=>document.getElementById(id),inr=n=>"₹"+n.toLocaleString("en-IN");
+function toast(t){const e=$("toast");e.textContent=t;e.style.display="block";setTimeout(()=>e.style.display="none",1800)}
+function head(){const n=Object.values(S.cart).reduce((a,b)=>a+b,0);$("cb").textContent="Cart ("+n+")";$("wb").textContent="Wishlist ("+S.wish.length+")";$("lb").textContent=S.user?S.user.name:"Login"}
+function add(id){S.cart[id]=(S.cart[id]||0)+1;sv("sk_cart",S.cart);head();toast("Added to cart")}
+function wish(id,ev){ev&&ev.stopPropagation();const i=S.wish.indexOf(id);i<0?S.wish.push(id):S.wish.splice(i,1);sv("sk_wish",S.wish);head();go(cur,arg)}
+function card(p){return `<div class="card" onclick="go('item',${p.id})"><button class="heart" aria-label="Wishlist" onclick="wish(${p.id},event)">${S.wish.includes(p.id)?"❤️":"🤍"}</button><div class="img" style="background:${p.bg}">${p.e}</div><h3>${p.n}</h3><div><span class="price">${inr(p.p)}</span><span class="old">${inr(p.o)}</span></div><div class="off">${Math.round(100-p.p*100/p.o)}% off</div></div>`}
+let cur="home",arg=null;
+function go(v,a){cur=v;arg=a;head();const m=$("v");
+if(v=="home"){let l=P.filter(p=>(S.cat=="All"||p.c==S.cat)&&p.n.toLowerCase().includes(S.q.toLowerCase()));
+if(S.sort=="lo")l.sort((a,b)=>a.p-b.p);if(S.sort=="hi")l.sort((a,b)=>b.p-a.p);
+m.innerHTML=`<div class="cats">${["All","Electronics","Fashion","Home","Books"].map(c=>`<button class="chip ${S.cat==c?"on":""}" onclick="S.cat='${c}';go('home')">${c}</button>`).join("")}<select aria-label="Sort" onchange="S.sort=this.value;go('home')"><option value="">Sort</option><option value="lo" ${S.sort=="lo"?"selected":""}>Price: low to high</option><option value="hi" ${S.sort=="hi"?"selected":""}>Price: high to low</option></select></div><div class="grid">${l.map(card).join("")||"<p class='mute'>No products match your search. Try a different word.</p>"}</div>`}
+else if(v=="item"){const p=P.find(x=>x.id==a);m.innerHTML=`<div class="detail"><div class="img" style="background:${p.bg}">${p.e}</div><div><h2>${p.n}</h2><p class="mute">${p.c}</p><p><span class="price" style="font-size:24px">${inr(p.p)}</span><span class="old">${inr(p.o)}</span></p><p class="mute">Free delivery in 3–5 days. 7-day easy returns.</p><button class="btn" onclick="add(${p.id})">Add to cart</button> <button class="btn alt" onclick="add(${p.id});go('cart')">Buy now</button></div></div>`}
+else if(v=="wish"){const l=P.filter(p=>S.wish.includes(p.id));m.innerHTML=`<h2>Wishlist</h2>`+(l.length?`<div class="grid">${l.map(card).join("")}</div>`:`<p class="mute">Nothing saved yet. Tap the heart on any product.</p>`)}
+else if(v=="cart"){const ids=Object.keys(S.cart);if(!ids.length){m.innerHTML=`<div class="panel"><h2>Your cart is empty</h2><button class="btn" onclick="go('home')">Browse products</button></div>`;return}
+let t=0;const rows=ids.map(i=>{const p=P.find(x=>x.id==i),q=S.cart[i];t+=p.p*q;return `<div class="row"><span>${p.e} ${p.n}</span><span><button class="chip" onclick="qty(${i},-1)">−</button> ${q} <button class="chip" onclick="qty(${i},1)">+</button></span><b>${inr(p.p*q)}</b></div>`}).join("");
+m.innerHTML=`<div class="panel"><h2>Cart</h2>${rows}<div class="row"><b>Total</b><b>${inr(t)}</b></div><br><button class="btn" onclick="go('checkout')">Proceed to checkout</button></div>`}
+else if(v=="checkout"){let t=Object.keys(S.cart).reduce((s,i)=>s+P.find(x=>x.id==i).p*S.cart[i],0);
+m.innerHTML=`<div class="panel"><h2>Checkout</h2><label>Full name<input id="cn" value="${S.user?S.user.name:""}"></label><label>Address<input id="ca"></label><label>Phone<input id="cp" inputmode="tel"></label>
+<div class="pay"><b>Payment</b><p class="mute">Razorpay goes here. Add your Razorpay Key ID below and load checkout.js from Razorpay's docs.</p><input id="rk" placeholder="RAZORPAY_KEY_ID (rzp_test_...)"></div>
+<button class="btn" onclick="pay(${t})">Pay ${inr(t)}</button></div>`}
+else if(v=="login"){m.innerHTML=S.user?`<div class="panel"><h2>Hi, ${S.user.name}</h2><button class="btn" onclick="S.user=null;sv('sk_user',null);go('home')">Log out</button></div>`:`<div class="panel"><h2>Login or sign up</h2><label>Name<input id="ln"></label><label>Email<input id="le" type="email"></label><button class="btn" onclick="login()">Continue</button><p class="mute">Demo only. Nothing is sent to a server.</p></div>`}
+else if(v=="done"){m.innerHTML=`<div class="panel"><h2>Order placed</h2><p>Thanks! Your demo order is confirmed.</p><button class="btn" onclick="go('home')">Continue shopping</button></div>`}
+scrollTo(0,0)}
+function qty(i,d){S.cart[i]+=d;if(S.cart[i]<=0)delete S.cart[i];sv("sk_cart",S.cart);go("cart")}
+function login(){const n=$("ln").value.trim();if(!n){toast("Enter your name");return}S.user={name:n};sv("sk_user",S.user);go("home")}
+function pay(t){if(!$("cn").value||!$("ca").value||!$("cp").value){toast("Fill name, address and phone");return}
+const key=$("rk").value.trim();
+if(key&&window.Razorpay){new Razorpay({key,amount:t*100,currency:"INR",name:"ShopKart",handler:()=>done()}).open()}
+else{done()}}
+function done(){S.cart={};sv("sk_cart",S.cart);go("done")}
+go("home");
+</script>
+</body>
+</html>
