@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DroneGyan - Drone ki poori jankari (types, parts, rules)</title>
+<meta name="description" content="Drone kya hota hai, kitne type ke hote hain, parts, upyog aur India ke drone niyam. Beginners ke liye simple jankari.">
+<meta name="keywords" content="drone, drone kya hai, drone types, drone parts, drone rules India">
+<meta name="robots" content="index, follow">
+<style>
+:root{--bg:#0e1a24;--card:#16283a;--ink:#eaf2f8;--mute:#9db3c5;--acc:#38bdf8;--acc2:#facc15}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Verdana,Tahoma,sans-serif;line-height:1.7}
+nav{position:sticky;top:0;background:#0a131b;display:flex;flex-wrap:wrap;gap:6px 18px;align-items:center;padding:12px 20px;z-index:2}
+nav b{font-size:20px;color:var(--acc);margin-right:auto}
+nav a{color:var(--ink);text-decoration:none;font-size:14px}
+nav a:hover,nav a:focus-visible{color:var(--acc2)}
+.hero{padding:70px 20px;text-align:center;background:radial-gradient(circle at 50% 0,#1d4663,var(--bg) 70%)}
+.hero h1{font-size:clamp(28px,6vw,46px);margin:0 0 12px}
+.hero p{max-width:620px;margin:0 auto 22px;color:var(--mute)}
+.hero .d{font-size:72px}
+.btn{display:inline-block;background:var(--acc);color:#06222f;padding:11px 22px;border-radius:6px;text-decoration:none;font-weight:700}
+section{max-width:1000px;margin:0 auto;padding:44px 20px}
+h2{border-left:5px solid var(--acc2);padding-left:12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+.card{background:var(--card);border-radius:10px;padding:18px}
+.card h3{margin:0 0 6px;color:var(--acc)}
+.card p{margin:0;color:var(--mute);font-size:14px}
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse;background:var(--card);border-radius:10px;min-width:480px}
+th,td{padding:10px 14px;text-align:left;border-bottom:1px solid #264057;font-size:14px}
+th{color:var(--acc2)}
+ul{color:var(--mute)}
+details{background:var(--card);border-radius:8px;padding:12px 16px;margin-bottom:10px}
+summary{cursor:pointer;font-weight:700}
+footer{text-align:center;padding:26px;color:var(--mute);font-size:13px;border-top:1px solid #264057}
+</style>
+</head>
+<body>
+<nav>
+<b>DroneGyan</b>
+<a href="#kya">Drone kya hai</a><a href="#types">Types</a><a href="#parts">Parts</a><a href="#use">Upyog</a><a href="#rules">Niyam</a><a href="#faq">FAQ</a>
+</nav>
+
+<header class="hero">
+<div class="d" aria-hidden="true">🚁</div>
+<h1>Drone ki poori jankari, aasan bhasha me</h1>
+<p>Drone kya hai, kaise udta hai, kitne type ke hote hain aur India me use karne ke niyam kya hain. Sab kuch ek jagah.</p>
+<a class="btn" href="#kya">Padhna shuru karein</a>
+</header>
+
+<section id="kya">
+<h2>Drone kya hota hai?</h2>
+<p>Drone ek aisa vimaan hai jisme pilot andar nahi baithta. Use door se remote ya mobile app se chalaya jata hai, ya wo pehle se tay raste par apne aap udta hai. Isko UAV (Unmanned Aerial Vehicle) bhi kehte hain.</p>
+<p>Zyadatar drone me motor aur propeller hote hain jo hawa ko neeche dhakelte hain, isse drone upar uthta hai. Chaar motor wale drone ko quadcopter kehte hain.</p>
+</section>
+
+<section id="types">
+<h2>Drone ke types</h2>
+<div class="grid">
+<div class="card"><h3>Multi-rotor</h3><p>Sabse common. Ek jagah hawa me ruk sakta hai. Photography aur chhote kaam ke liye achha.</p></div>
+<div class="card"><h3>Fixed-wing</h3><p>Hawai jahaz jaisa. Lambi doori aur der tak udta hai. Mapping aur survey me use hota hai.</p></div>
+<div class="card"><h3>Single-rotor</h3><p>Helicopter jaisa. Bhaari saaman utha sakta hai, lekin mehnga hota hai.</p></div>
+<div class="card"><h3>Hybrid VTOL</h3><p>Seedha upar uthta hai aur phir jahaz ki tarah udta hai. Dono ke fayde milte hain.</p></div>
+</div>
+<br>
+<div class="tw"><table>
+<tr><th>Type</th><th>Flight time</th><th>Sabse achha kaam</th></tr>
+<tr><td>Multi-rotor</td><td>15 se 40 minute</td><td>Photo, video, inspection</td></tr>
+<tr><td>Fixed-wing</td><td>1 se 3 ghante</td><td>Mapping, kheti ka survey</td></tr>
+<tr><td>Single-rotor</td><td>30 se 60 minute</td><td>Bhaari payload</td></tr>
+<tr><td>Hybrid VTOL</td><td>1 se 2 ghante</td><td>Lambi doori ka survey</td></tr>
+</table></div>
+<p class="mute" style="color:var(--mute);font-size:13px">Flight time model par nirbhar karta hai, ye sirf anumaan hai.</p>
+</section>
+
+<section id="parts">
+<h2>Drone ke mukhya parts</h2>
+<div class="grid">
+<div class="card"><h3>Frame</h3><p>Drone ka dhancha jisme sab parts jude hote hain.</p></div>
+<div class="card"><h3>Motors aur propellers</h3><p>Drone ko uthane ki takat dete hain.</p></div>
+<div class="card"><h3>ESC</h3><p>Har motor ki speed ko control karta hai.</p></div>
+<div class="card"><h3>Flight controller</h3><p>Drone ka dimaag. Sensor padh kar use sthir rakhta hai.</p></div>
+<div class="card"><h3>Battery (LiPo)</h3><p>Poore drone ko bijli deti hai.</p></div>
+<div class="card"><h3>GPS aur camera</h3><p>Jagah pata karne aur photo ya video lene ke liye.</p></div>
+</div>
+</section>
+
+<section id="use">
+<h2>Drone kahan use hote hain?</h2>
+<ul>
+<li>Shaadi aur film ki photography</li>
+<li>Kheti me dawa ka chhidkaav aur fasal ki nigrani</li>
+<li>Zameen ka survey aur nakshe banana</li>
+<li>Bijli ke taar aur tower ki jaanch</li>
+<li>Baadh ya aag me bachav aur khoj</li>
+<li>Saaman ki delivery</li>
+</ul>
+</section>
+
+<section id="rules">
+<h2>India me drone ke niyam (sankshep me)</h2>
+<ul>
+<li>Drone Rules 2021 ke tahat drone udane ke niyam tay hain.</li>
+<li>Digital Sky platform par zone dekhe jaate hain: Green, Yellow aur Red.</li>
+<li>Airport ke paas aur sensitive jagah (Red zone) me bina anumati udana mana hai.</li>
+<li>Kuch weight ke upar ke drone ke liye registration ya license chahiye.</li>
+</ul>
+<p style="color:var(--mute);font-size:13px">Niyam badalte rehte hain. Udane se pehle hamesha sarkari Digital Sky website par taaza jankari dekh lein.</p>
+</section>
+
+<section id="faq">
+<h2>Aksar puchhe jaane wale sawal</h2>
+<details><summary>Beginner ke liye kaunsa drone theek hai?</summary><p>Chhota multi-rotor drone jisme GPS aur auto-return ho, shuru karne ke liye surakshit rehta hai.</p></details>
+<details><summary>Drone kitni oonchai tak ud sakta hai?</summary><p>India ke niyam me aam taur par zameen se 120 meter tak ki seema hoti hai. Pakki jankari ke liye sarkari niyam dekhein.</p></details>
+<details><summary>Kya drone ko mobile se chala sakte hain?</summary><p>Haan, zyadatar drone ki app hoti hai jo mobile se jud kar camera aur control deti hai.</p></details>
+</section>
+
+<footer>
+&copy; 2026 DroneGyan. Ye ek education project hai.
+</footer>
+</body>
+</html>
